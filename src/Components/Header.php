@@ -13,7 +13,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Kalnoy\Nestedset\QueryBuilder;
 use Livewire\Component;
-use Livewire\Features\SupportEvents\Event;
 use Studio15\FilamentTree\Components\Form\ParentSelect;
 
 /**
@@ -34,7 +33,7 @@ final class Header extends Component implements HasForms, HasActions
         $model = $this->component::getModel();
 
         $action = CreateAction::make()
-            ->after(fn (): Event => $this->dispatch('filament-tree-updated'));
+            ->after(fn () => $this->dispatch('filament-tree-updated'));
 
         $this->configureAction($action);
 

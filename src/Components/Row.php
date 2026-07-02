@@ -21,7 +21,6 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Session;
 use Livewire\Component;
-use Livewire\Features\SupportEvents\Event;
 use RuntimeException;
 use Studio15\FilamentTree\Components\Form\ParentSelect;
 
@@ -119,7 +118,7 @@ final class Row extends Component implements HasForms, HasActions, HasInfolists
                 }
             })
             ->record(fn (array $arguments): Model => $this->row)
-            ->after(fn (): Event => $this->dispatch('filament-tree-updated'))
+            ->after(fn () => $this->dispatch('filament-tree-updated'))
             ->icon('heroicon-m-trash')
             ->labeledFrom('md');
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Studio15\FilamentTree;
 
+use Filament\Panel;
 use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
@@ -54,5 +55,14 @@ final class FilamentTreeServiceProvider extends PackageServiceProvider
             Js::make('filament-tree', __DIR__.'/../resources/dist/filament-tree.min.js')->loadedOnRequest(),
             Js::make('sortable', 'https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js')->loadedOnRequest(),
         ], package: self::$name);
+
+        // Register the plugin with Filament panels (v4+ only)
+        if (method_exists(Panel::class, 'configureUsing')) {
+            Panel::configureUsing(function (Panel $panel): void {
+                if (! $panel->hasPlugin(self::$name)) {
+                    $panel->plugin(FilamentTreePlugin::make());
+                }
+            });
+        }
     }
 }
